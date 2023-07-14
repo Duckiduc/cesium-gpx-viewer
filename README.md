@@ -11,30 +11,31 @@ A GPX viewer built with React.js, Vite, and Cesium. This project allows you to v
 
 ## Installation
 
-1. Clone the repository:
+1.  Clone the repository:
 
     ```bash
     git@github.com:Duckiduc/cesium-gpx-viewer.git
     ```
 
-2. Navigate to the project directory:
+2.  Navigate to the project directory:
 
     ```bash
     cd cesium-gpx-viewer
     ```
 
-3. Install dependencies:
+3.  Install dependencies:
 
     ```bash
     npm install
     ```
 
-4. Start the development server:
+4.  Start the development server:
 
-    ```bash
-    npm run dev
-    ```
-This will launch the GPX Viewer in your browser at `http://localhost:5173`.
+        ```bash
+        npm run dev
+        ```
+
+    This will launch the GPX Viewer in your browser at `http://localhost:5173`.
 
 ## Build
 

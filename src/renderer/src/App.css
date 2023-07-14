@@ -24,7 +24,7 @@
   margin-bottom: 10px;
 }
 
-.dialog-container input[type="text"] {
+.dialog-container input[type='text'] {
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 3px;
