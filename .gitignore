@@ -1,3 +1,6 @@
-/node_modules
-/src/assets/*.gpx
+node_modules
+dist
+out
+*.log*
 .env
+*.gpx
