@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Electron</title>
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src 'self' 'unsafe-eval' https://dev.virtualearth.net;
+        style-src 'self' 'unsafe-inline';
+        connect-src 'self' https://api.cesium.com https://assets.ion.cesium.com http://*.tiles.virtualearth.net *;
+        img-src 'self' data: *
+      "
+    />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
