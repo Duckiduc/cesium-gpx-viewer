@@ -36,6 +36,19 @@ A GPX viewer built with React.js, Vite, and Cesium. This project allows you to v
     ```
 This will launch the GPX Viewer in your browser at `http://localhost:5173`.
 
+## Build
+
+```bash
+# For windows
+$ npm run build:win
+
+# For macOS
+$ npm run build:mac
+
+# For Linux
+$ npm run build:linux
+```
+
 ## Usage
 
 ## Configuration
@@ -44,11 +57,11 @@ This will launch the GPX Viewer in your browser at `http://localhost:5173`.
 
 The following individuals have made significant contributions to the development of this project:
 
-- [Jeanne RIAUDEL](https://www.linkedin.com/in/jeanne-riaudel-77514020a/)
-  - Obtained valuable real GPX data during fieldwork and provided them for testing purposes.
-  - Contributed to the innovation and feature ideas of the project.
 - [Duc-Thomas NGUYEN](https://www.linkedin.com/in/duc-thomas-nguyen/)
   - Led the development of the project.
+  - Contributed to the innovation and feature ideas of the project.
+- [Jeanne RIAUDEL](https://www.linkedin.com/in/jeanne-riaudel-77514020a/)
+  - Obtained valuable real GPX data during fieldwork and provided them for testing purposes.
   - Contributed to the innovation and feature ideas of the project.
 
 ## License
