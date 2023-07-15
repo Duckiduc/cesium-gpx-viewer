@@ -4,7 +4,7 @@ interface GpxFormProps {
   onFileUpload: (file: File) => void
 }
 
-function GpxForm({ onFileUpload }: GpxFormProps): JSX.Element {
+export function GpxForm({ onFileUpload }: GpxFormProps): JSX.Element {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const file = event.target.files?.[0]
     if (file) {
@@ -27,5 +27,3 @@ function GpxForm({ onFileUpload }: GpxFormProps): JSX.Element {
     </form>
   )
 }
-
-export default GpxForm
