@@ -5,7 +5,7 @@ interface ApiFormProps {
   onSubmit: (value: string) => void
 }
 
-function ApiForm({ onSubmit }: ApiFormProps): JSX.Element {
+export function ApiForm({ onSubmit }: ApiFormProps): JSX.Element {
   const [inputValue, setInputValue] = useState('')
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -24,5 +24,3 @@ function ApiForm({ onSubmit }: ApiFormProps): JSX.Element {
     </form>
   )
 }
-
-export default ApiForm

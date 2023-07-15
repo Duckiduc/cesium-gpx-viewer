@@ -10,8 +10,8 @@ import {
 import { useEffect, useRef, useState } from 'react'
 import 'cesium/Build/Cesium/Widgets/widgets.css'
 import './App.css'
-import ApiForm from './components/ApiForm'
-import GpxForm from './components/GpxForm'
+import { ApiForm } from './components/ApiForm'
+import { GpxForm } from './components/GpxForm'
 
 function App(): JSX.Element {
   const [apiKey, setApiKey] = useState('')
