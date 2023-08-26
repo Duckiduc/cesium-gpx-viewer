@@ -34,7 +34,7 @@ function App(): JSX.Element {
           const dataSource = new GpxDataSource()
           dataSource.load(file.file, {
             clampToGround: true,
-            trackColor: hexToRgb(file.color)
+            trackColor: hexToRgb(file.color) as unknown as string
           })
 
           // Make sure viewerRef.current is not null before adding the data source
