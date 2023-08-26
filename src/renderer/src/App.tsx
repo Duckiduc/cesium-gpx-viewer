@@ -7,8 +7,15 @@ import { GpxForm } from './components/GpxForm'
 
 function App(): JSX.Element {
   const [apiKey, setApiKey] = useState('')
-  const [GPXFiles, setGPXFiles] = useState<File[]>([]) // Store multiple GPX files
+  const [GPXFiles, setGPXFiles] = useState<{ file: File; color: string }[]>([]) // Store multiple GPX files
   const viewerRef = useRef<Viewer | null>(null)
+
+  function hexToRgb(hex): Color {
+    const red = parseInt(hex.substring(1, 3), 16)
+    const green = parseInt(hex.substring(3, 5), 16)
+    const blue = parseInt(hex.substring(5, 7), 16)
+    return Color.fromBytes(red, green, blue, 255)
+  }
 
   useEffect(() => {
     const initializeViewer = async (): Promise<void> => {
@@ -25,9 +32,9 @@ function App(): JSX.Element {
       if (viewerRef.current && GPXFiles.length > 0) {
         GPXFiles.forEach((file) => {
           const dataSource = new GpxDataSource()
-          dataSource.load(file, {
-            clampToGround: true
-            // trackColor: Color.YELLOW.toCssColorString()
+          dataSource.load(file.file, {
+            clampToGround: true,
+            trackColor: hexToRgb(file.color)
           })
 
           // Make sure viewerRef.current is not null before adding the data source
@@ -53,7 +60,7 @@ function App(): JSX.Element {
     setApiKey(value)
   }
 
-  const handleGpxFileUpload = (files: File[]): void => {
+  const handleGpxFileUpload = (files: { file: File; color: string }[]): void => {
     setGPXFiles(files)
   }
 
