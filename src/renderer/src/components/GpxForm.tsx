@@ -1,29 +1,40 @@
+import React, { useState } from 'react'
 import './GpxForm.css'
 
 interface GpxFormProps {
-  onFileUpload: (file: File) => void
+  onFileUpload: (files: File[]) => void
 }
 
 export function GpxForm({ onFileUpload }: GpxFormProps): JSX.Element {
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([])
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const file = event.target.files?.[0]
-    if (file) {
-      onFileUpload(file)
-    }
+    const newFiles = Array.from(event.target.files || [])
+    setSelectedFiles([...selectedFiles, ...newFiles])
   }
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault()
-    const file = event.target[0].files?.[0]
-    if (file) {
-      onFileUpload(file)
-    }
+  const handleDelete = (index: number): void => {
+    const newFiles = [...selectedFiles]
+    newFiles.splice(index, 1)
+    setSelectedFiles(newFiles)
+  }
+
+  const handleUpload = (): void => {
+    onFileUpload(selectedFiles)
   }
 
   return (
-    <form className="gpx-form" onSubmit={handleFormSubmit}>
-      <input type="file" accept=".gpx" onChange={handleFileChange} />
-      <button type="submit">Upload GPX</button>
-    </form>
+    <div className="gpx-form">
+      <input type="file" accept=".gpx" multiple onChange={handleFileChange} />
+      <button onClick={handleUpload}>Upload GPX</button>
+      <div>
+        {selectedFiles.map((file, index) => (
+          <div key={index}>
+            <span>{file.name}</span>
+            <button onClick={(): void => handleDelete(index)}>Delete</button>
+          </div>
+        ))}
+      </div>
+    </div>
   )
 }
