@@ -1,5 +1,104 @@
 .gpx-form {
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 10px;
+  left: 10px;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.file {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.upload-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.color-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ height: 30px;
+ width: 30px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.delete-btn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 9px 16px;
+  border-radius: 10px;
+  background: #d64545;
+  box-shadow: 0px 4px 15px rgba(46, 46, 46, 0.15);
+  height: 30px;
+  color: white;
+}
+
+.upload-btn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 9px 16px;
+  border-radius: 10px;
+  background: #52B788;
+  box-shadow: 0px 4px 15px rgba(46, 46, 46, 0.15);
+  height: 36px;
+}
+
+input[type="color"] {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  min-height: 50px;
+  padding: 0;
+  min-width: 50px;
+}
+
+label {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #2E2E2E;
+  padding: 9px 16px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0px 4px 15px rgba(46, 46, 46, 0.15);
+  max-height: 36px;
+}
+
+.gpx-container {
+  background-color: rgba(46, 46, 46, 0.1);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0 10px 10px;
 }
