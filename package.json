@@ -22,7 +22,7 @@
   "dependencies": {
     "@electron-toolkit/preload": "^2.0.0",
     "@electron-toolkit/utils": "^1.0.2",
-    "cesium": "^1.107.2",
+    "cesium": "^1.109.0",
     "electron-updater": "^6.1.4"
   },
   "devDependencies": {
