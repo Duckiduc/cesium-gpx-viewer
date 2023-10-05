@@ -1,0 +1,34 @@
+.card {
+  background: #fff;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  padding: 32px;
+}
+
+.card__info__place {
+  font-size: 14px;
+  color: #2F2F31;
+}
+
+.card__info__time {
+  font-size: 30px;
+  color: #22215B;
+}
+
+.card__info__date {
+  font-size: 14px;
+  color: #2F2F31;
+}
+
+.card__weather {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card__weather__temp {
+  font-size: 30px;
+}
