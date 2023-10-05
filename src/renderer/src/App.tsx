@@ -4,6 +4,7 @@ import 'cesium/Build/Cesium/Widgets/widgets.css'
 import './App.css'
 import { ApiForm } from './components/ApiForm'
 import { GpxForm } from './components/GpxForm'
+import { WeatherForm } from './components/WeatherForm'
 
 function App(): JSX.Element {
   const [apiKey, setApiKey] = useState('')
@@ -67,7 +68,10 @@ function App(): JSX.Element {
   return (
     <>
       <div id="cesiumContainer"></div>
-      <GpxForm onFileUpload={handleGpxFileUpload} />
+      <div className="left-sidebar">
+        <GpxForm onFileUpload={handleGpxFileUpload} />
+        <WeatherForm viewerRef={viewerRef} />
+      </div>
       {!apiKey && <ApiForm onSubmit={handleApiKeySubmit} />}
     </>
   )
