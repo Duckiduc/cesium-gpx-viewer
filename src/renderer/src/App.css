@@ -3,6 +3,14 @@
   width: 100vw;
 }
 
+.left-sidebar {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 10px;
+  left: 10px;
+}
+
 .dialog-container {
   position: fixed;
   top: 50%;
