@@ -1,0 +1,14 @@
+.card {
+  margin-bottom: 10px;
+}
+
+.hour-cell {
+  text-align: center;
+  border-right: 1px solid grey;
+  padding: 5px;
+  width: 40px;
+}
+
+.hour-cell:last-child {
+  border-right: none;
+}

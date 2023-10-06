@@ -1,0 +1,15 @@
+.card {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+pre {
+  overflow: auto;
+  max-height: 200px;
+  word-break: normal !important;
+  word-wrap: normal !important;
+  white-space: pre !important;
+}
