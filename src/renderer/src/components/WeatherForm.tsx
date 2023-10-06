@@ -4,6 +4,7 @@ import './WeatherForm.css'
 import { NowCard } from './NowCard'
 import data from '../assets/weather-mock.json'
 import { DayCard } from './DayCard'
+import { JsonCard } from './JsonCard'
 
 interface WeatherFormProps {
   viewerRef: RefObject<Viewer | null>
@@ -62,9 +63,10 @@ export function WeatherForm({ viewerRef }: WeatherFormProps): JSX.Element {
 
   return (
     <div className="weather-form">
-      <NowCard weatherData={data} currentClock={currentClock}></NowCard>
-      <DayCard weatherData={data} currentClock={currentClock} mid={'am'}></DayCard>
-      <DayCard weatherData={data} currentClock={currentClock} mid={'pm'}></DayCard>
+      <NowCard weatherData={data} currentClock={currentClock} />
+      <DayCard weatherData={data} currentClock={currentClock} mid={'am'} />
+      <DayCard weatherData={data} currentClock={currentClock} mid={'pm'} />
+      <JsonCard weatherData={data} />
       <button onClick={(): Promise<void> => getWeather()}>Hello</button>
     </div>
   )
