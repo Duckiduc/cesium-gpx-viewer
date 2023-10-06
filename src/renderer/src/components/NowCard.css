@@ -1,25 +1,25 @@
 .card {
   background: #fff;
-  width: 500px;
+  /* width: 300px; */
   display: flex;
   align-items: center;
-  border-radius: 30px;
-  padding: 32px;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .card__info__place {
   font-size: 14px;
-  color: #2F2F31;
+  color: #2f2f31;
 }
 
 .card__info__time {
   font-size: 30px;
-  color: #22215B;
+  color: #22215b;
 }
 
 .card__info__date {
   font-size: 14px;
-  color: #2F2F31;
+  color: #2f2f31;
 }
 
 .card__weather {

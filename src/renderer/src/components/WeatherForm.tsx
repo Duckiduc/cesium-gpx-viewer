@@ -3,6 +3,7 @@ import { RefObject, useState } from 'react'
 import './WeatherForm.css'
 import { NowCard } from './NowCard'
 import data from '../assets/weather-mock.json'
+import { DayCard } from './DayCard'
 
 interface WeatherFormProps {
   viewerRef: RefObject<Viewer | null>
@@ -15,7 +16,9 @@ export function WeatherForm({ viewerRef }: WeatherFormProps): JSX.Element {
     if (viewerRef.current) {
       const mainDataSource = viewerRef.current.dataSources.get(0)
       const activeEntity = (mainDataSource.entities as any)._entities._array[0]
-      const activeEntityPosition = activeEntity._position.getValue(viewerRef.current.clock.currentTime)
+      const activeEntityPosition = activeEntity._position.getValue(
+        viewerRef.current.clock.currentTime
+      )
 
       const date = JulianDate.toGregorianDate(viewerRef.current.clock.currentTime)
 
@@ -43,11 +46,11 @@ export function WeatherForm({ viewerRef }: WeatherFormProps): JSX.Element {
 
     // try {
     //   const response = await fetch(``)
-      
+
     //   if (!response.ok) {
     //     throw new Error(`HTTP error! Status: ${response.status}`);
     //   }
-  
+
     //   const data = await response.json();
     //   console.log("🚀 ~ file: WeatherForm.tsx:65 ~ getWeather ~ data", data)
     //   return data;
@@ -55,13 +58,14 @@ export function WeatherForm({ viewerRef }: WeatherFormProps): JSX.Element {
     //   console.error('Error:', error);
     //   throw error;
     // }
-
   }
 
   return (
     <div className="weather-form">
       <NowCard weatherData={data} currentClock={currentClock}></NowCard>
-      <button onClick={() => getWeather()}>Hello</button>
+      <DayCard weatherData={data} currentClock={currentClock} mid={'am'}></DayCard>
+      <DayCard weatherData={data} currentClock={currentClock} mid={'pm'}></DayCard>
+      <button onClick={(): Promise<void> => getWeather()}>Hello</button>
     </div>
   )
 }
