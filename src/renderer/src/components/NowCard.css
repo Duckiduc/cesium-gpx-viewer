@@ -1,10 +1,32 @@
 .card {
   background: #fff;
-  /* width: 300px; */
   display: flex;
   align-items: center;
   border-radius: 5px;
   padding: 10px;
+}
+
+.card-column {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.card-full {
+  width: 100%;
+}
+
+.card-half {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sub-card {
+  display: flex;
+  flex-direction: row;
 }
 
 .card__info__place {
