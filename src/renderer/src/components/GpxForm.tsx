@@ -1,12 +1,31 @@
-import React, { useState } from 'react'
+import React, { RefObject, useState } from 'react'
 import './GpxForm.css'
-import { Color } from 'cesium'
+import { Color, GregorianDate, Viewer } from 'cesium'
+import { WeatherData } from '../types/weatherData'
+import { getCoordinates, fetchWeatherData } from '../utils/cesiumUtils'
+import { ApiForm } from './ApiForm'
 
 interface GpxFormProps {
   onFileUpload: (files: { file: File; color: string }[]) => void
+  toggleWeatherForm: (visible?: boolean) => void
+  getWeather: (data: WeatherData) => void
+  handleClockUpdate: (clock: GregorianDate) => void
+  viewerRef: RefObject<Viewer | null>
+  status: boolean
+  weatherStatus: boolean
 }
 
-export function GpxForm({ onFileUpload }: GpxFormProps): JSX.Element {
+export function GpxForm({
+  onFileUpload,
+  toggleWeatherForm,
+  getWeather,
+  handleClockUpdate,
+  viewerRef,
+  status,
+  weatherStatus
+}: GpxFormProps): JSX.Element {
+  const [weatherApiKey, setWeatherApiKey] = useState<string>('')
+  const [weatherApiFormVisible, setWeatherApiFormVisible] = useState<boolean>(false)
   const [selectedFiles, setSelectedFiles] = useState<{ file: File; color: string }[]>([])
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -30,21 +49,64 @@ export function GpxForm({ onFileUpload }: GpxFormProps): JSX.Element {
     onFileUpload(selectedFiles)
   }
 
+  const handleHideWeatherClick = (): void => {
+    toggleWeatherForm()
+  }
+
+  const handleApiKeySubmit = async (value: string): Promise<void> => {
+    setWeatherApiKey(value)
+    setWeatherApiFormVisible(false)
+    const { latitude, longitude, date } = getCoordinates(viewerRef, handleClockUpdate)
+    const weather = await fetchWeatherData(latitude, longitude, date, value)
+    getWeather(weather)
+    toggleWeatherForm(true)
+  }
+
+  const handleRefreshWeatherClick = async (): Promise<void> => {
+    if (!weatherApiKey) {
+      setWeatherApiFormVisible(true)
+      return
+    }
+    const { latitude, longitude, date } = getCoordinates(viewerRef, handleClockUpdate)
+    const weather = await fetchWeatherData(latitude, longitude, date, weatherApiKey)
+    getWeather(weather)
+    toggleWeatherForm(true)
+  }
+
   return (
     <div className="gpx-form">
       <div className="gpx-form__upload-container">
-        <label className="gpx-form__upload-label" htmlFor="upload">
-          Choose files
-        </label>
-        <input id="upload" type="file" accept=".gpx" multiple hidden onChange={handleFileChange} />
-        <button className="gpx-form__upload-btn" onClick={handleUpload}>
-          <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
-            <path
-              fill="#fff"
-              d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
-            />
-          </svg>
-        </button>
+        <div className="gpx-form__btn-container">
+          <label className="gpx-form__upload-label" htmlFor="upload">
+            Choose files
+          </label>
+          <input
+            id="upload"
+            type="file"
+            accept=".gpx"
+            multiple
+            hidden
+            onChange={handleFileChange}
+          />
+          <button className="gpx-form__upload-btn" onClick={handleUpload}>
+            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+              <path
+                fill="#fff"
+                d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+              />
+            </svg>
+          </button>
+        </div>
+        <div className="gpx-form__btn-container">
+          {weatherStatus && (
+            <button className="gpx-form__hide-btn" onClick={handleHideWeatherClick}>
+              {status ? 'Hide weather' : 'Show weather'}
+            </button>
+          )}
+          <button className="gpx-form__data-btn" onClick={handleRefreshWeatherClick}>
+            {status ? 'Refresh weather' : 'Get weather'}
+          </button>
+        </div>
       </div>
       <div className="gpx-form__file-container">
         {selectedFiles.map((track, index) => (
@@ -70,6 +132,7 @@ export function GpxForm({ onFileUpload }: GpxFormProps): JSX.Element {
           </div>
         ))}
       </div>
+      {weatherApiFormVisible && <ApiForm onSubmit={handleApiKeySubmit} />}
     </div>
   )
 }
