@@ -1,7 +1,8 @@
+import { WeatherData } from '../types/weatherData'
 import './JsonCard.css'
 
 interface JsonCardProps {
-  weatherData: any
+  weatherData: WeatherData
 }
 
 export function JsonCard({ weatherData }: JsonCardProps): JSX.Element {
