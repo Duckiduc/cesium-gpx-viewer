@@ -1,17 +1,21 @@
-import { Color, GpxDataSource, Ion, Terrain, Viewer } from 'cesium'
+import { Color, GpxDataSource, GregorianDate, Ion, Terrain, Viewer } from 'cesium'
 import { useEffect, useRef, useState } from 'react'
 import 'cesium/Build/Cesium/Widgets/widgets.css'
 import './App.css'
 import { ApiForm } from './components/ApiForm'
 import { GpxForm } from './components/GpxForm'
 import { WeatherForm } from './components/WeatherForm'
+import { WeatherData } from './types/weatherData'
 
 function App(): JSX.Element {
-  const [apiKey, setApiKey] = useState('')
+  const [apiKey, setApiKey] = useState<string>('')
   const [GPXFiles, setGPXFiles] = useState<{ file: File; color: string }[]>([]) // Store multiple GPX files
+  const [weatherFormVisible, setWeatherFormVisible] = useState<boolean>(false)
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null)
+  const [currentClock, setCurrentClock] = useState<GregorianDate | null>(null)
   const viewerRef = useRef<Viewer | null>(null)
 
-  function hexToRgb(hex): Color {
+  const hexToRgb = (hex): Color => {
     const red = parseInt(hex.substring(1, 3), 16)
     const green = parseInt(hex.substring(3, 5), 16)
     const blue = parseInt(hex.substring(5, 7), 16)
@@ -65,13 +69,37 @@ function App(): JSX.Element {
     setGPXFiles(files)
   }
 
+  const toggleWeatherForm = (visible?: boolean): void => {
+    setWeatherFormVisible(visible !== undefined ? visible : !weatherFormVisible)
+  }
+
+  const getWeather = (data): void => {
+    setWeatherData(data)
+  }
+
+  const handleClockUpdate = (clock: GregorianDate): void => {
+    setCurrentClock(clock)
+  }
+
   return (
     <>
       <div id="cesiumContainer"></div>
-      <div className="left-sidebar">
-        <GpxForm onFileUpload={handleGpxFileUpload} />
-        <WeatherForm viewerRef={viewerRef} />
-      </div>
+      {apiKey && (
+        <div className="left-sidebar">
+          <GpxForm
+            onFileUpload={handleGpxFileUpload}
+            toggleWeatherForm={toggleWeatherForm}
+            getWeather={getWeather}
+            handleClockUpdate={handleClockUpdate}
+            viewerRef={viewerRef}
+            status={weatherFormVisible}
+            weatherStatus={!!weatherData}
+          />
+          {weatherFormVisible && (
+            <WeatherForm weatherData={weatherData} currentClock={currentClock} />
+          )}
+        </div>
+      )}
       {!apiKey && <ApiForm onSubmit={handleApiKeySubmit} />}
     </>
   )
