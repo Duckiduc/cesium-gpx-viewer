@@ -21,9 +21,7 @@
       "precip": 0.1,
       "precipprob": 100,
       "precipcover": 4.17,
-      "preciptype": [
-        "rain"
-      ],
+      "preciptype": ["rain"],
       "snow": 0,
       "snowdepth": 0,
       "windgust": 54,
@@ -44,10 +42,7 @@
       "conditions": "Rain, Partially cloudy",
       "description": "Partly cloudy throughout the day with morning rain.",
       "icon": "rain",
-      "stations": [
-        "44329099999",
-        "remote"
-      ],
+      "stations": ["44329099999", "remote"],
       "source": "obs",
       "hours": [
         {
@@ -74,9 +69,7 @@
           "severerisk": 10,
           "conditions": "Overcast",
           "icon": "cloudy",
-          "stations": [
-            "remote"
-          ],
+          "stations": ["remote"],
           "source": "obs"
         },
         {
@@ -103,9 +96,7 @@
           "severerisk": 10,
           "conditions": "Partially cloudy",
           "icon": "partly-cloudy-night",
-          "stations": [
-            "remote"
-          ],
+          "stations": ["remote"],
           "source": "obs"
         },
         {
@@ -132,9 +123,7 @@
           "severerisk": 10,
           "conditions": "Overcast",
           "icon": "cloudy",
-          "stations": [
-            "44329099999"
-          ],
+          "stations": ["44329099999"],
           "source": "obs"
         },
         {
@@ -161,9 +150,7 @@
           "severerisk": 10,
           "conditions": "Overcast",
           "icon": "cloudy",
-          "stations": [
-            "remote"
-          ],
+          "stations": ["remote"],
           "source": "obs"
         },
         {
@@ -190,9 +177,7 @@
           "severerisk": 10,
           "conditions": "Overcast",
           "icon": "cloudy",
-          "stations": [
-            "remote"
-          ],
+          "stations": ["remote"],
           "source": "obs"
         },
         {
@@ -219,9 +204,7 @@
           "severerisk": 10,
           "conditions": "Overcast",
           "icon": "cloudy",
-          "stations": [
-            "44329099999"
-          ],
+          "stations": ["44329099999"],
           "source": "obs"
         },
         {
@@ -248,9 +231,7 @@
           "severerisk": 10,
           "conditions": "Overcast",
           "icon": "cloudy",
-          "stations": [
-            "remote"
-          ],
+          "stations": ["remote"],
           "source": "obs"
         },
         {
@@ -277,9 +258,7 @@
           "severerisk": 10,
           "conditions": "Overcast",
           "icon": "cloudy",
-          "stations": [
-            "remote"
-          ],
+          "stations": ["remote"],
           "source": "obs"
         },
         {
@@ -293,9 +272,7 @@
           "precipprob": 100,
           "snow": 0,
           "snowdepth": 0,
-          "preciptype": [
-            "rain"
-          ],
+          "preciptype": ["rain"],
           "windgust": 18,
           "windspeed": 14.4,
           "winddir": 250,
@@ -308,9 +285,7 @@
           "severerisk": 10,
           "conditions": "Rain, Partially cloudy",
           "icon": "rain",
-          "stations": [
-            "44329099999"
-          ],
+          "stations": ["44329099999"],
           "source": "obs"
         },
         {
@@ -337,9 +312,7 @@
           "severerisk": 10,
           "conditions": "Partially cloudy",
           "icon": "partly-cloudy-day",
-          "stations": [
-            "remote"
-          ],
+          "stations": ["remote"],
           "source": "obs"
         },
         {
@@ -366,9 +339,7 @@
           "severerisk": 10,
           "conditions": "Overcast",
           "icon": "cloudy",
-          "stations": [
-            "remote"
-          ],
+          "stations": ["remote"],
           "source": "obs"
         },
         {
@@ -395,9 +366,7 @@
           "severerisk": 10,
           "conditions": "Partially cloudy",
           "icon": "partly-cloudy-day",
-          "stations": [
-            "44329099999"
-          ],
+          "stations": ["44329099999"],
           "source": "obs"
         },
         {
@@ -424,9 +393,7 @@
           "severerisk": 10,
           "conditions": "Overcast",
           "icon": "cloudy",
-          "stations": [
-            "remote"
-          ],
+          "stations": ["remote"],
           "source": "obs"
         },
         {
@@ -453,9 +420,7 @@
           "severerisk": 10,
           "conditions": "Overcast",
           "icon": "cloudy",
-          "stations": [
-            "remote"
-          ],
+          "stations": ["remote"],
           "source": "obs"
         },
         {
@@ -482,9 +447,7 @@
           "severerisk": 10,
           "conditions": "Partially cloudy",
           "icon": "partly-cloudy-day",
-          "stations": [
-            "44329099999"
-          ],
+          "stations": ["44329099999"],
           "source": "obs"
         },
         {
@@ -511,9 +474,7 @@
           "severerisk": 10,
           "conditions": "Partially cloudy",
           "icon": "partly-cloudy-day",
-          "stations": [
-            "remote"
-          ],
+          "stations": ["remote"],
           "source": "obs"
         },
         {
@@ -540,9 +501,7 @@
           "severerisk": 10,
           "conditions": "Partially cloudy",
           "icon": "partly-cloudy-day",
-          "stations": [
-            "remote"
-          ],
+          "stations": ["remote"],
           "source": "obs"
         },
         {
@@ -569,9 +528,7 @@
           "severerisk": 10,
           "conditions": "Partially cloudy",
           "icon": "partly-cloudy-day",
-          "stations": [
-            "44329099999"
-          ],
+          "stations": ["44329099999"],
           "source": "obs"
         },
         {
@@ -598,9 +555,7 @@
           "severerisk": 10,
           "conditions": "Overcast",
           "icon": "cloudy",
-          "stations": [
-            "remote"
-          ],
+          "stations": ["remote"],
           "source": "obs"
         },
         {
@@ -627,9 +582,7 @@
           "severerisk": 10,
           "conditions": "Partially cloudy",
           "icon": "partly-cloudy-day",
-          "stations": [
-            "remote"
-          ],
+          "stations": ["remote"],
           "source": "obs"
         },
         {
@@ -656,9 +609,7 @@
           "severerisk": 10,
           "conditions": "Partially cloudy",
           "icon": "partly-cloudy-day",
-          "stations": [
-            "44329099999"
-          ],
+          "stations": ["44329099999"],
           "source": "obs"
         },
         {
@@ -685,9 +636,7 @@
           "severerisk": 10,
           "conditions": "Partially cloudy",
           "icon": "partly-cloudy-day",
-          "stations": [
-            "remote"
-          ],
+          "stations": ["remote"],
           "source": "obs"
         },
         {
@@ -714,9 +663,7 @@
           "severerisk": 10,
           "conditions": "Overcast",
           "icon": "cloudy",
-          "stations": [
-            "remote"
-          ],
+          "stations": ["remote"],
           "source": "obs"
         },
         {
@@ -743,9 +690,7 @@
           "severerisk": 10,
           "conditions": "Partially cloudy",
           "icon": "partly-cloudy-night",
-          "stations": [
-            "44329099999"
-          ],
+          "stations": ["44329099999"],
           "source": "obs"
         }
       ]
