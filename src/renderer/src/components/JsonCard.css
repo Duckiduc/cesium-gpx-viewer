@@ -12,4 +12,5 @@ pre {
   word-break: normal !important;
   word-wrap: normal !important;
   white-space: pre !important;
+  width: 100%;
 }
