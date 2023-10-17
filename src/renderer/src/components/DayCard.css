@@ -2,6 +2,18 @@
   margin-bottom: 10px;
 }
 
+.card-column {
+  margin-bottom: 10px;
+}
+
+.tz {
+  rotate: -90deg;
+}
+
+.black {
+  color: black;
+}
+
 .hour-cell {
   text-align: center;
   border-right: 1px solid grey;
