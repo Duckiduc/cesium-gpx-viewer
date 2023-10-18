@@ -6,7 +6,7 @@
   padding: 10px;
 }
 
-.card-column {
+.card__column {
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -14,11 +14,11 @@
   padding: 10px;
 }
 
-.card-full {
+.card__full {
   width: 100%;
 }
 
-.card-half {
+.card__half {
   width: 50%;
   display: flex;
   flex-direction: column;
