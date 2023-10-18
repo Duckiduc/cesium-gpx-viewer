@@ -1,9 +1,9 @@
-import { GregorianDate } from 'cesium'
-import './WeatherForm.css'
-import { NowCard } from './NowCard'
 import { DayCard } from './DayCard'
+import { GregorianDate } from 'cesium'
 import { JsonCard } from './JsonCard'
+import { NowCard } from './NowCard'
 import { WeatherData } from '../types/weatherData'
+import './WeatherForm.css'
 
 interface WeatherFormProps {
   weatherData: WeatherData | null
