@@ -1,27 +1,27 @@
 import React, { RefObject, useState } from 'react'
-import './GpxForm.css'
 import { Color, GregorianDate, Viewer } from 'cesium'
-import { WeatherData } from '../types/weatherData'
-import { getCoordinates, fetchWeatherData } from '../utils/cesiumUtils'
 import { ApiForm } from './ApiForm'
+import { getCoordinates, fetchWeatherData } from '../utils/cesiumUtils'
+import { WeatherData } from '../types/weatherData'
+import './GpxForm.css'
 
 interface GpxFormProps {
-  onFileUpload: (files: { file: File; color: string }[]) => void
-  toggleWeatherForm: (visible?: boolean) => void
   getWeather: (data: WeatherData) => void
   handleClockUpdate: (clock: GregorianDate) => void
-  viewerRef: RefObject<Viewer | null>
+  onFileUpload: (files: { file: File; color: string }[]) => void
+  toggleWeatherForm: (visible?: boolean) => void
   status: boolean
+  viewerRef: RefObject<Viewer | null>
   weatherStatus: boolean
 }
 
 export function GpxForm({
-  onFileUpload,
-  toggleWeatherForm,
   getWeather,
   handleClockUpdate,
-  viewerRef,
+  onFileUpload,
+  toggleWeatherForm,
   status,
+  viewerRef,
   weatherStatus
 }: GpxFormProps): JSX.Element {
   const [weatherApiKey, setWeatherApiKey] = useState<string>('')
