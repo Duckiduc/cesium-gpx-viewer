@@ -1,11 +1,49 @@
-import { Color, GpxDataSource, GregorianDate, Ion, Terrain, Viewer } from 'cesium'
 import { useEffect, useRef, useState } from 'react'
-import 'cesium/Build/Cesium/Widgets/widgets.css'
-import './App.css'
+import { Color, GpxDataSource, GregorianDate, Ion, Terrain, Viewer } from 'cesium'
 import { ApiForm } from './components/ApiForm'
 import { GpxForm } from './components/GpxForm'
-import { WeatherForm } from './components/WeatherForm'
 import { WeatherData } from './types/weatherData'
+import { WeatherForm } from './components/WeatherForm'
+import './App.css'
+import 'cesium/Build/Cesium/Widgets/widgets.css'
+
+const hexToRgb = (hex): Color => {
+  const red = parseInt(hex.substring(1, 3), 16)
+  const green = parseInt(hex.substring(3, 5), 16)
+  const blue = parseInt(hex.substring(5, 7), 16)
+  return Color.fromBytes(red, green, blue, 255)
+}
+
+const initializeViewer = async (
+  apiKey: string,
+  GPXFiles: { file: File; color: string }[],
+  viewerRef
+): Promise<void> => {
+  Ion.defaultAccessToken = apiKey
+
+  viewerRef.current = new Viewer('cesiumContainer', {
+    terrain: Terrain.fromWorldTerrain({
+      requestVertexNormals: false
+    })
+  })
+
+  viewerRef.current.scene.globe.enableLighting = true
+
+  if (viewerRef.current && GPXFiles.length > 0) {
+    GPXFiles.forEach((file) => {
+      const dataSource = new GpxDataSource()
+      dataSource.load(file.file, {
+        clampToGround: true,
+        trackColor: hexToRgb(file.color) as unknown as string
+      })
+
+      // Make sure viewerRef.current is not null before adding the data source
+      if (viewerRef.current) {
+        viewerRef.current.dataSources.add(dataSource)
+      }
+    })
+  }
+}
 
 function App(): JSX.Element {
   const [apiKey, setApiKey] = useState<string>('')
@@ -15,47 +53,13 @@ function App(): JSX.Element {
   const [currentClock, setCurrentClock] = useState<GregorianDate | null>(null)
   const viewerRef = useRef<Viewer | null>(null)
 
-  const hexToRgb = (hex): Color => {
-    const red = parseInt(hex.substring(1, 3), 16)
-    const green = parseInt(hex.substring(3, 5), 16)
-    const blue = parseInt(hex.substring(5, 7), 16)
-    return Color.fromBytes(red, green, blue, 255)
-  }
-
   useEffect(() => {
-    const initializeViewer = async (): Promise<void> => {
-      Ion.defaultAccessToken = apiKey
-
-      viewerRef.current = new Viewer('cesiumContainer', {
-        terrain: Terrain.fromWorldTerrain({
-          requestVertexNormals: false
-        })
-      })
-
-      viewerRef.current.scene.globe.enableLighting = true
-
-      if (viewerRef.current && GPXFiles.length > 0) {
-        GPXFiles.forEach((file) => {
-          const dataSource = new GpxDataSource()
-          dataSource.load(file.file, {
-            clampToGround: true,
-            trackColor: hexToRgb(file.color) as unknown as string
-          })
-
-          // Make sure viewerRef.current is not null before adding the data source
-          if (viewerRef.current) {
-            viewerRef.current.dataSources.add(dataSource)
-          }
-        })
-      }
-    }
-
     const destroyViewer = (): void => {
       viewerRef.current?.destroy()
     }
 
     if (apiKey) {
-      initializeViewer()
+      initializeViewer(apiKey, GPXFiles, viewerRef)
     }
 
     return destroyViewer
