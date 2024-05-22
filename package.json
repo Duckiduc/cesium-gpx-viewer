@@ -46,6 +46,6 @@
     "react-dom": "^18.2.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.2",
-    "vite-plugin-static-copy": "^0.17.0"
+    "vite-plugin-static-copy": "^1.0.5"
   }
 }
