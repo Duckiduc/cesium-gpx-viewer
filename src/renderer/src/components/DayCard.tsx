@@ -13,7 +13,7 @@ export function DayCard({ currentClock, mid, weatherData }: DayCardProps): JSX.E
   const hours = isAM ? weatherData.days[0].hours.slice(0, 12) : weatherData.days[0].hours.slice(12)
 
   const shift = weatherData.tzoffset > 0 ? `+${weatherData.tzoffset}` : weatherData.tzoffset
-  const currentClockTz = (currentClock?.hour ?? 0) + weatherData.tzoffset ?? 0
+  const currentClockTz = (currentClock?.hour ?? 0) + weatherData.tzoffset
 
   return (
     <div className="card">
