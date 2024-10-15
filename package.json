@@ -23,7 +23,7 @@
     "@electron-toolkit/preload": "^2.0.0",
     "@electron-toolkit/utils": "^3.0.0",
     "cesium": "^1.121.1",
-    "electron-updater": "^6.3.0"
+    "electron-updater": "^6.3.9"
   },
   "devDependencies": {
     "@electron-toolkit/tsconfig": "^1.0.1",
