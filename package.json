@@ -20,23 +20,23 @@
     "build:linux": "electron-vite build && electron-builder --linux --config"
   },
   "dependencies": {
-    "@electron-toolkit/preload": "^2.0.0",
+    "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^3.0.0",
     "cesium": "^1.121.1",
-    "electron-updater": "^6.3.0"
+    "electron-updater": "^6.3.9"
   },
   "devDependencies": {
     "@electron-toolkit/tsconfig": "^1.0.1",
-    "@electron/notarize": "^2.4.0",
+    "@electron/notarize": "^2.5.0",
     "@types/node": "^22.7.5",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
     "@typescript-eslint/eslint-plugin": "^8.9.0",
     "@typescript-eslint/parser": "^8.9.0",
     "@vitejs/plugin-react": "^4.2.1",
-    "electron": "^27.1.0",
-    "electron-builder": "^24.13.3",
-    "electron-vite": "^2.1.0",
+    "electron": "^31.7.0",
+    "electron-builder": "^25.1.8",
+    "electron-vite": "^2.3.0",
     "eslint": "^9.12.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
