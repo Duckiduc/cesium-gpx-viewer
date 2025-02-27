@@ -1,6 +1,7 @@
 import { GregorianDate } from 'cesium'
 import { WeatherData } from '../types/weatherData'
 import './DayCard.css'
+import { JSX } from 'react'
 
 interface DayCardProps {
   currentClock: GregorianDate | null
