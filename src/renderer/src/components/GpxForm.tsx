@@ -1,4 +1,4 @@
-import React, { RefObject, useState } from 'react'
+import React, { JSX, RefObject, useState } from 'react'
 import { Color, GregorianDate, Viewer } from 'cesium'
 import { ApiForm } from './ApiForm'
 import { getCoordinates, fetchWeatherData } from '../utils/cesiumUtils'

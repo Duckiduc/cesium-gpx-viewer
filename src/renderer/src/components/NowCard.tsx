@@ -2,6 +2,7 @@ import { getMonthName } from '../utils/dateUtils'
 import { GregorianDate } from 'cesium'
 import { WeatherData } from '../types/weatherData'
 import './NowCard.css'
+import { JSX } from 'react'
 
 interface NowCardProps {
   weatherData: WeatherData

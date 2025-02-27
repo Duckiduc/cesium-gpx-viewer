@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { JSX, useEffect, useRef, useState } from 'react'
 import { Color, GpxDataSource, GregorianDate, Ion, Terrain, Viewer } from 'cesium'
 import { ApiForm } from './components/ApiForm'
 import { GpxForm } from './components/GpxForm'

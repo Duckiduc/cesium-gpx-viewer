@@ -1,3 +1,4 @@
+import { JSX } from 'react'
 import { WeatherData } from '../types/weatherData'
 import './JsonCard.css'
 

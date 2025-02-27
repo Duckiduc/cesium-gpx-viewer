@@ -4,6 +4,7 @@ import { JsonCard } from './JsonCard'
 import { NowCard } from './NowCard'
 import { WeatherData } from '../types/weatherData'
 import './WeatherForm.css'
+import { JSX } from 'react'
 
 interface WeatherFormProps {
   weatherData: WeatherData | null
