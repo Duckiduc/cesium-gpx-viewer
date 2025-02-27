@@ -2,6 +2,7 @@ import { getMonthName } from '../utils/dateUtils'
 import { GregorianDate } from 'cesium'
 import { WeatherData } from '../types/weatherData'
 import './NowCard.css'
+import { JSX } from 'react'
 
 interface NowCardProps {
   weatherData: WeatherData
@@ -54,7 +55,7 @@ const WeatherDetails = ({ weatherData }: { weatherData: WeatherData }): JSX.Elem
   )
 }
 
-export function NowCard({ weatherData, currentClock }: NowCardProps): JSX.Element {
+export const NowCard = ({ weatherData, currentClock }: NowCardProps): JSX.Element => {
   const currentDayTz =
     (currentClock?.hour ?? 0) + weatherData.tzoffset > 23
       ? (currentClock?.day ?? 0) + 1

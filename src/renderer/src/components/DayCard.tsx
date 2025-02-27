@@ -1,6 +1,7 @@
 import { GregorianDate } from 'cesium'
 import { WeatherData } from '../types/weatherData'
 import './DayCard.css'
+import { JSX } from 'react'
 
 interface DayCardProps {
   currentClock: GregorianDate | null
@@ -8,7 +9,7 @@ interface DayCardProps {
   weatherData: WeatherData
 }
 
-export function DayCard({ currentClock, mid, weatherData }: DayCardProps): JSX.Element {
+export const DayCard = ({ currentClock, mid, weatherData }: DayCardProps): JSX.Element => {
   const isAM = mid === 'am'
   const hours = isAM ? weatherData.days[0].hours.slice(0, 12) : weatherData.days[0].hours.slice(12)
 

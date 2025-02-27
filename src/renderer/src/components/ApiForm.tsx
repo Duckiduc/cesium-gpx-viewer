@@ -1,11 +1,11 @@
-import { useState, ChangeEvent, FormEvent } from 'react'
+import { useState, ChangeEvent, FormEvent, JSX } from 'react'
 import '../App.css'
 
 interface ApiFormProps {
   onSubmit: (value: string) => void
 }
 
-export function ApiForm({ onSubmit }: ApiFormProps): JSX.Element {
+export const ApiForm = ({ onSubmit }: ApiFormProps): JSX.Element => {
   const [inputValue, setInputValue] = useState('')
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {

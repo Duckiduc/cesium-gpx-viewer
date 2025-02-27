@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { JSX, RefObject, SetStateAction, useEffect, useRef, useState } from 'react'
 import { Color, GpxDataSource, GregorianDate, Ion, Terrain, Viewer } from 'cesium'
 import { ApiForm } from './components/ApiForm'
 import { GpxForm } from './components/GpxForm'
@@ -7,7 +7,7 @@ import { WeatherForm } from './components/WeatherForm'
 import './App.css'
 import 'cesium/Build/Cesium/Widgets/widgets.css'
 
-const hexToRgb = (hex): Color => {
+const hexToRgb = (hex: string): Color => {
   const red = parseInt(hex.substring(1, 3), 16)
   const green = parseInt(hex.substring(3, 5), 16)
   const blue = parseInt(hex.substring(5, 7), 16)
@@ -17,7 +17,7 @@ const hexToRgb = (hex): Color => {
 const initializeViewer = async (
   apiKey: string,
   GPXFiles: { file: File; color: string }[],
-  viewerRef
+  viewerRef: RefObject<Viewer | null>
 ): Promise<void> => {
   Ion.defaultAccessToken = apiKey
 
@@ -45,7 +45,7 @@ const initializeViewer = async (
   }
 }
 
-function App(): JSX.Element {
+const App = (): JSX.Element => {
   const [apiKey, setApiKey] = useState<string>('')
   const [GPXFiles, setGPXFiles] = useState<{ file: File; color: string }[]>([]) // Store multiple GPX files
   const [weatherFormVisible, setWeatherFormVisible] = useState<boolean>(false)
@@ -77,7 +77,7 @@ function App(): JSX.Element {
     setWeatherFormVisible(visible !== undefined ? visible : !weatherFormVisible)
   }
 
-  const getWeather = (data): void => {
+  const getWeather = (data: SetStateAction<WeatherData | null>): void => {
     setWeatherData(data)
   }
 

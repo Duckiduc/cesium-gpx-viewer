@@ -4,13 +4,14 @@ import { JsonCard } from './JsonCard'
 import { NowCard } from './NowCard'
 import { WeatherData } from '../types/weatherData'
 import './WeatherForm.css'
+import { JSX } from 'react'
 
 interface WeatherFormProps {
   weatherData: WeatherData | null
   currentClock: GregorianDate | null
 }
 
-export function WeatherForm({ weatherData, currentClock }: WeatherFormProps): JSX.Element {
+export const WeatherForm = ({ weatherData, currentClock }: WeatherFormProps): JSX.Element => {
   return (
     <div className="weather-form">
       {weatherData && <NowCard weatherData={weatherData} currentClock={currentClock} />}
