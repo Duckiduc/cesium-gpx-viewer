@@ -1,0 +1,41 @@
+.temperature-unit-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.temp-unit-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.temp-unit-select {
+  padding: 4px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+}
+
+.temp-unit-select:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.temp-unit-select:focus {
+  border-color: #567df4;
+  box-shadow: 0 0 0 2px rgba(86, 125, 244, 0.2);
+}
+
+.temp-unit-select option {
+  background-color: #2c2c2c;
+  color: #fff;
+}
