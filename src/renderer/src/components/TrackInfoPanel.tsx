@@ -1,6 +1,6 @@
 import { JSX } from 'react'
 import { TrackInfo } from '../types/trackInfo'
-import { formatDistance, formatElevation, formatDuration, formatSpeed } from '../utils/trackUtils'
+import { formatDistance, formatElevation, formatDuration, formatSpeed } from '../utils/gpxParser'
 import './TrackInfoPanel.css'
 
 interface TrackInfoPanelProps {
@@ -50,30 +50,41 @@ export function TrackInfoPanel({ trackInfo, onClose }: TrackInfoPanelProps): JSX
 
         <div className="track-info-panel__section">
           <h4>Elevation</h4>
-          <div className="track-info-panel__row">
-            <span className="track-info-panel__label">Elevation Gain:</span>
-            <span className="track-info-panel__value">
-              {formatElevation(trackInfo.elevationGain)}
-            </span>
-          </div>
-          <div className="track-info-panel__row">
-            <span className="track-info-panel__label">Elevation Loss:</span>
-            <span className="track-info-panel__value">
-              {formatElevation(trackInfo.elevationLoss)}
-            </span>
-          </div>
-          <div className="track-info-panel__row">
-            <span className="track-info-panel__label">Min Elevation:</span>
-            <span className="track-info-panel__value">
-              {formatElevation(trackInfo.minElevation)}
-            </span>
-          </div>
-          <div className="track-info-panel__row">
-            <span className="track-info-panel__label">Max Elevation:</span>
-            <span className="track-info-panel__value">
-              {formatElevation(trackInfo.maxElevation)}
-            </span>
-          </div>
+          {trackInfo.elevationGain > 0 || trackInfo.elevationLoss > 0 ? (
+            <>
+              <div className="track-info-panel__row">
+                <span className="track-info-panel__label">Elevation Gain:</span>
+                <span className="track-info-panel__value">
+                  {formatElevation(trackInfo.elevationGain)}
+                </span>
+              </div>
+              <div className="track-info-panel__row">
+                <span className="track-info-panel__label">Elevation Loss:</span>
+                <span className="track-info-panel__value">
+                  {formatElevation(trackInfo.elevationLoss)}
+                </span>
+              </div>
+              <div className="track-info-panel__row">
+                <span className="track-info-panel__label">Min Elevation:</span>
+                <span className="track-info-panel__value">
+                  {formatElevation(trackInfo.minElevation)}
+                </span>
+              </div>
+              <div className="track-info-panel__row">
+                <span className="track-info-panel__label">Max Elevation:</span>
+                <span className="track-info-panel__value">
+                  {formatElevation(trackInfo.maxElevation)}
+                </span>
+              </div>
+            </>
+          ) : (
+            <div className="track-info-panel__row">
+              <span className="track-info-panel__label">Elevation Data:</span>
+              <span className="track-info-panel__value track-info-panel__value--muted">
+                Not available
+              </span>
+            </div>
+          )}
         </div>
 
         <div className="track-info-panel__section">
