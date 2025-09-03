@@ -1,0 +1,142 @@
+.track-info-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(42, 42, 42, 0.95);
+  border: 1px solid #555;
+  border-radius: 8px;
+  min-width: 320px;
+  max-width: 400px;
+  color: #e0e0e0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+}
+
+.track-info-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #555;
+}
+
+.track-info-panel__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 12px;
+}
+
+.track-info-panel__close {
+  background: none;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  transition: all 0.2s ease;
+}
+
+.track-info-panel__close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.track-info-panel__content {
+  padding: 16px 20px 20px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.track-info-panel__section {
+  margin-bottom: 20px;
+}
+
+.track-info-panel__section:last-child {
+  margin-bottom: 0;
+}
+
+.track-info-panel__section h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #444;
+  padding-bottom: 6px;
+}
+
+.track-info-panel__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.track-info-panel__row:last-child {
+  border-bottom: none;
+}
+
+.track-info-panel__label {
+  font-size: 14px;
+  color: #ccc;
+  flex: 1;
+}
+
+.track-info-panel__value {
+  font-size: 14px;
+  color: #fff;
+  font-weight: 500;
+  text-align: right;
+  margin-left: 12px;
+}
+
+/* Scrollbar styling for webkit browsers */
+.track-info-panel__content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.track-info-panel__content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.track-info-panel__content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.track-info-panel__content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Animation for panel appearance */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.track-info-panel {
+  animation: fadeIn 0.2s ease-out;
+}
