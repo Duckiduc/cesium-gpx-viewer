@@ -1,12 +1,14 @@
 import { getMonthName } from '../utils/dateUtils'
 import { GregorianDate } from 'cesium'
 import { WeatherData } from '../types/weatherData'
+import { TemperatureUnit, formatTemperature } from '../utils/temperatureUtils'
 import './NowCard.css'
 import { JSX } from 'react'
 
 interface NowCardProps {
   weatherData: WeatherData
   currentClock: GregorianDate | null
+  temperatureUnit: TemperatureUnit
 }
 
 const WeatherIcon = (): JSX.Element => {
@@ -27,7 +29,7 @@ const WeatherIcon = (): JSX.Element => {
   )
 }
 
-const WeatherDetails = ({ weatherData }: { weatherData: WeatherData }): JSX.Element => {
+const WeatherDetails = ({ weatherData, temperatureUnit }: { weatherData: WeatherData; temperatureUnit: TemperatureUnit }): JSX.Element => {
   return (
     <div className="card__column">
       <div className="card__full">
@@ -38,11 +40,10 @@ const WeatherDetails = ({ weatherData }: { weatherData: WeatherData }): JSX.Elem
       <div className="sub-card">
         <div className="card__half">
           <div>
-            Temperature: {weatherData.days[0].tempmin}° C | {weatherData.days[0].tempmax}° C
+            Temperature: {formatTemperature(weatherData.days[0].tempmin, temperatureUnit)} | {formatTemperature(weatherData.days[0].tempmax, temperatureUnit)}
           </div>
           <div>
-            Feels like: {weatherData.days[0].feelslikemin}° C | {weatherData.days[0].feelslikemax}°
-            C
+            Feels like: {formatTemperature(weatherData.days[0].feelslikemin, temperatureUnit)} | {formatTemperature(weatherData.days[0].feelslikemax, temperatureUnit)}
           </div>
         </div>
         <div className="card__half">
@@ -55,7 +56,7 @@ const WeatherDetails = ({ weatherData }: { weatherData: WeatherData }): JSX.Elem
   )
 }
 
-export function NowCard({ weatherData, currentClock }: NowCardProps): JSX.Element {
+export function NowCard({ weatherData, currentClock, temperatureUnit }: NowCardProps): JSX.Element {
   const currentDayTz =
     (currentClock?.hour ?? 0) + weatherData.tzoffset > 23
       ? (currentClock?.day ?? 0) + 1
@@ -64,8 +65,7 @@ export function NowCard({ weatherData, currentClock }: NowCardProps): JSX.Elemen
   const currentTempTz =
     (currentClock?.hour ?? 0) + weatherData.tzoffset > 23
       ? 'N/A'
-      : `${weatherData.days[0].hours[((currentClock?.hour ?? 0) + weatherData.tzoffset) % 24].temp}
-  ° C`
+      : formatTemperature(weatherData.days[0].hours[((currentClock?.hour ?? 0) + weatherData.tzoffset) % 24].temp, temperatureUnit)
 
   return (
     <>
@@ -86,7 +86,7 @@ export function NowCard({ weatherData, currentClock }: NowCardProps): JSX.Elemen
           <p className="card__weather__temp">{currentTempTz}</p>
         </div>
       </div>
-      <WeatherDetails weatherData={weatherData} />
+      <WeatherDetails weatherData={weatherData} temperatureUnit={temperatureUnit} />
     </>
   )
 }

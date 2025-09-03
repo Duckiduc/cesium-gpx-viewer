@@ -4,6 +4,7 @@ import { ApiForm } from './components/ApiForm'
 import { GpxForm } from './components/GpxForm'
 import { WeatherData } from './types/weatherData'
 import { WeatherForm } from './components/WeatherForm'
+import { TemperatureUnit } from './utils/temperatureUtils'
 import './App.css'
 import 'cesium/Build/Cesium/Widgets/widgets.css'
 
@@ -51,7 +52,21 @@ function App(): JSX.Element {
   const [weatherFormVisible, setWeatherFormVisible] = useState<boolean>(false)
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null)
   const [currentClock, setCurrentClock] = useState<GregorianDate | null>(null)
+  const [temperatureUnit, setTemperatureUnit] = useState<TemperatureUnit>('C')
   const viewerRef = useRef<Viewer | null>(null)
+
+  // Load temperature unit preference from localStorage on mount
+  useEffect(() => {
+    const savedUnit = localStorage.getItem('temperatureUnit') as TemperatureUnit
+    if (savedUnit && ['C', 'F', 'K'].includes(savedUnit)) {
+      setTemperatureUnit(savedUnit)
+    }
+  }, [])
+
+  // Save temperature unit preference to localStorage when changed
+  useEffect(() => {
+    localStorage.setItem('temperatureUnit', temperatureUnit)
+  }, [temperatureUnit])
 
   useEffect(() => {
     const destroyViewer = (): void => {
@@ -100,7 +115,12 @@ function App(): JSX.Element {
             weatherStatus={!!weatherData}
           />
           {weatherFormVisible && (
-            <WeatherForm weatherData={weatherData} currentClock={currentClock} />
+            <WeatherForm 
+              weatherData={weatherData} 
+              currentClock={currentClock}
+              temperatureUnit={temperatureUnit}
+              onTemperatureUnitChange={setTemperatureUnit}
+            />
           )}
         </div>
       )}
