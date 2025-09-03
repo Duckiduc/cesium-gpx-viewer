@@ -1,3 +1,9 @@
+export interface GPXFileData {
+  file: File
+  color: string
+  trackInfo?: TrackInfo
+}
+
 export interface TrackInfo {
   name: string
   distance: number // in meters
