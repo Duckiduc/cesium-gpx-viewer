@@ -1,9 +1,22 @@
-import { JSX, RefObject, SetStateAction, useEffect, useRef, useState } from 'react'
-import { Color, GpxDataSource, GregorianDate, Ion, Terrain, Viewer } from 'cesium'
+import { JSX, useEffect, useRef, useState } from 'react'
+import {
+  Color,
+  GpxDataSource,
+  GregorianDate,
+  Ion,
+  Terrain,
+  Viewer,
+  ScreenSpaceEventHandler,
+  ScreenSpaceEventType,
+  defined
+} from 'cesium'
 import { ApiForm } from './components/ApiForm'
 import { GpxForm } from './components/GpxForm'
 import { WeatherData } from './types/weatherData'
 import { WeatherForm } from './components/WeatherForm'
+import { TrackInfoPanel } from './components/TrackInfoPanel'
+import { TrackInfo } from './types/trackInfo'
+import { calculateTrackInfo } from './utils/trackUtils'
 import './App.css'
 import 'cesium/Build/Cesium/Widgets/widgets.css'
 
@@ -17,7 +30,12 @@ const hexToRgb = (hex: string): Color => {
 const initializeViewer = async (
   apiKey: string,
   GPXFiles: { file: File; color: string }[],
+<<<<<<< HEAD
   viewerRef: RefObject<Viewer | null>
+=======
+  viewerRef,
+  onTrackClick: (trackInfo: TrackInfo) => void
+>>>>>>> 8bf57a9 (Implement basic GPX track click detection with track info panel)
 ): Promise<void> => {
   Ion.defaultAccessToken = apiKey
 
@@ -28,6 +46,24 @@ const initializeViewer = async (
   })
 
   viewerRef.current.scene.globe.enableLighting = true
+
+  // Add click handler for track selection
+  const handler = new ScreenSpaceEventHandler(viewerRef.current.scene.canvas)
+  handler.setInputAction((click) => {
+    const pickedObject = viewerRef.current?.scene.pick(click.position)
+
+    if (defined(pickedObject) && defined(pickedObject.id)) {
+      const entity = pickedObject.id
+
+      // Check if the clicked entity is from a GPX track
+      if (entity.polyline || entity.path) {
+        const trackInfo = calculateTrackInfo(entity)
+        if (trackInfo) {
+          onTrackClick(trackInfo)
+        }
+      }
+    }
+  }, ScreenSpaceEventType.LEFT_CLICK)
 
   if (viewerRef.current && GPXFiles.length > 0) {
     GPXFiles.forEach((file) => {
@@ -51,7 +87,16 @@ function App(): JSX.Element {
   const [weatherFormVisible, setWeatherFormVisible] = useState<boolean>(false)
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null)
   const [currentClock, setCurrentClock] = useState<GregorianDate | null>(null)
+  const [selectedTrackInfo, setSelectedTrackInfo] = useState<TrackInfo | null>(null)
   const viewerRef = useRef<Viewer | null>(null)
+
+  const handleTrackClick = (trackInfo: TrackInfo): void => {
+    setSelectedTrackInfo(trackInfo)
+  }
+
+  const handleCloseTrackInfo = (): void => {
+    setSelectedTrackInfo(null)
+  }
 
   useEffect(() => {
     const destroyViewer = (): void => {
@@ -59,7 +104,7 @@ function App(): JSX.Element {
     }
 
     if (apiKey) {
-      initializeViewer(apiKey, GPXFiles, viewerRef)
+      initializeViewer(apiKey, GPXFiles, viewerRef, handleTrackClick)
     }
 
     return destroyViewer
@@ -105,6 +150,7 @@ function App(): JSX.Element {
         </div>
       )}
       {!apiKey && <ApiForm onSubmit={handleApiKeySubmit} />}
+      <TrackInfoPanel trackInfo={selectedTrackInfo} onClose={handleCloseTrackInfo} />
     </>
   )
 }
