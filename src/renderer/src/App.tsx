@@ -15,8 +15,7 @@ import { GpxForm } from './components/GpxForm'
 import { WeatherData } from './types/weatherData'
 import { WeatherForm } from './components/WeatherForm'
 import { TrackInfoPanel } from './components/TrackInfoPanel'
-import { TrackInfo } from './types/trackInfo'
-import { calculateTrackInfo } from './utils/trackUtils'
+import { TrackInfo, GPXFileData } from './types/trackInfo'
 import './App.css'
 import 'cesium/Build/Cesium/Widgets/widgets.css'
 
@@ -29,10 +28,14 @@ const hexToRgb = (hex: string): Color => {
 
 const initializeViewer = async (
   apiKey: string,
+<<<<<<< HEAD
   GPXFiles: { file: File; color: string }[],
 <<<<<<< HEAD
   viewerRef: RefObject<Viewer | null>
 =======
+=======
+  GPXFiles: GPXFileData[],
+>>>>>>> 4bea2bb (Complete GPX track click functionality with comprehensive track information display)
   viewerRef,
   onTrackClick: (trackInfo: TrackInfo) => void
 >>>>>>> 8bf57a9 (Implement basic GPX track click detection with track info panel)
@@ -49,6 +52,9 @@ const initializeViewer = async (
 
   // Add click handler for track selection
   const handler = new ScreenSpaceEventHandler(viewerRef.current.scene.canvas)
+  // Store mapping between data sources and track info
+  const dataSourceToTrackInfo = new Map()
+
   handler.setInputAction((click) => {
     const pickedObject = viewerRef.current?.scene.pick(click.position)
 
@@ -57,7 +63,23 @@ const initializeViewer = async (
 
       // Check if the clicked entity is from a GPX track
       if (entity.polyline || entity.path) {
-        const trackInfo = calculateTrackInfo(entity)
+        // Find the data source that contains this entity
+        const dataSources = viewerRef.current?.dataSources
+        if (dataSources) {
+          for (let i = 0; i < dataSources.length; i++) {
+            const dataSource = dataSources.get(i)
+            if (dataSource.entities.contains(entity)) {
+              const trackInfo = dataSourceToTrackInfo.get(dataSource)
+              if (trackInfo) {
+                onTrackClick(trackInfo)
+                return
+              }
+            }
+          }
+        }
+
+        // Fallback: use the first available track info
+        const trackInfo = GPXFiles.find((file) => file.trackInfo)?.trackInfo
         if (trackInfo) {
           onTrackClick(trackInfo)
         }
@@ -66,24 +88,29 @@ const initializeViewer = async (
   }, ScreenSpaceEventType.LEFT_CLICK)
 
   if (viewerRef.current && GPXFiles.length > 0) {
-    GPXFiles.forEach((file) => {
+    for (const fileData of GPXFiles) {
       const dataSource = new GpxDataSource()
-      dataSource.load(file.file, {
+      await dataSource.load(fileData.file, {
         clampToGround: true,
-        trackColor: hexToRgb(file.color) as unknown as string
+        trackColor: hexToRgb(fileData.color) as unknown as string
       })
+
+      // Associate the data source with track info
+      if (fileData.trackInfo) {
+        dataSourceToTrackInfo.set(dataSource, fileData.trackInfo)
+      }
 
       // Make sure viewerRef.current is not null before adding the data source
       if (viewerRef.current) {
         viewerRef.current.dataSources.add(dataSource)
       }
-    })
+    }
   }
 }
 
 function App(): JSX.Element {
   const [apiKey, setApiKey] = useState<string>('')
-  const [GPXFiles, setGPXFiles] = useState<{ file: File; color: string }[]>([]) // Store multiple GPX files
+  const [GPXFiles, setGPXFiles] = useState<GPXFileData[]>([]) // Store multiple GPX files
   const [weatherFormVisible, setWeatherFormVisible] = useState<boolean>(false)
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null)
   const [currentClock, setCurrentClock] = useState<GregorianDate | null>(null)
@@ -114,7 +141,7 @@ function App(): JSX.Element {
     setApiKey(value)
   }
 
-  const handleGpxFileUpload = (files: { file: File; color: string }[]): void => {
+  const handleGpxFileUpload = (files: GPXFileData[]): void => {
     setGPXFiles(files)
   }
 
