@@ -3,12 +3,14 @@ import { Color, GregorianDate, Viewer } from 'cesium'
 import { ApiForm } from './ApiForm'
 import { getCoordinates, fetchWeatherData } from '../utils/cesiumUtils'
 import { WeatherData } from '../types/weatherData'
+import { GPXFileData } from '../types/trackInfo'
+import { parseGPXFile } from '../utils/gpxParser'
 import './GpxForm.css'
 
 interface GpxFormProps {
   getWeather: (data: WeatherData) => void
   handleClockUpdate: (clock: GregorianDate) => void
-  onFileUpload: (files: { file: File; color: string }[]) => void
+  onFileUpload: (files: GPXFileData[]) => void
   toggleWeatherForm: (visible?: boolean) => void
   status: boolean
   viewerRef: RefObject<Viewer | null>
@@ -26,11 +28,42 @@ export function GpxForm({
 }: GpxFormProps): JSX.Element {
   const [weatherApiKey, setWeatherApiKey] = useState<string>('')
   const [weatherApiFormVisible, setWeatherApiFormVisible] = useState<boolean>(false)
-  const [selectedFiles, setSelectedFiles] = useState<{ file: File; color: string }[]>([])
+  const [selectedFiles, setSelectedFiles] = useState<GPXFileData[]>([])
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
     const newFiles = Array.from(event.target.files || [])
-    const newTracks = newFiles.map((file) => ({ file, color: Color.YELLOW.toCssColorString() }))
+
+    // Process each file and extract track information
+    const newTracks: GPXFileData[] = []
+
+    for (const file of newFiles) {
+      try {
+        // Read the file content
+        const fileContent = await file.text()
+
+        // Parse GPX and extract track info
+        const trackInfo = parseGPXFile(fileContent, file.name)
+
+        const gpxFileData: GPXFileData = {
+          file,
+          color: Color.YELLOW.toCssColorString(),
+          trackInfo: trackInfo || undefined
+        }
+
+        newTracks.push(gpxFileData)
+      } catch (error) {
+        console.error('Error processing GPX file:', file.name, error)
+
+        // Add file without track info if parsing fails
+        const gpxFileData: GPXFileData = {
+          file,
+          color: Color.YELLOW.toCssColorString()
+        }
+
+        newTracks.push(gpxFileData)
+      }
+    }
+
     setSelectedFiles([...selectedFiles, ...newTracks])
   }
 
