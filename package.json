@@ -29,10 +29,10 @@
     "@electron-toolkit/tsconfig": "^1.0.1",
     "@electron/notarize": "^2.5.0",
     "@types/node": "^22.15.0",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "@typescript-eslint/eslint-plugin": "^8.25.0",
-    "@typescript-eslint/parser": "^8.16.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@typescript-eslint/eslint-plugin": "^8.46.2",
+    "@typescript-eslint/parser": "^8.46.2",
     "@vitejs/plugin-react": "^4.3.4",
     "electron": "^38.4.0",
     "electron-builder": "^26.0.12",
@@ -44,7 +44,7 @@
     "prettier": "^3.5.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "typescript": "^5.7.3",
+    "typescript": "^5.9.3",
     "vite": "^5.4.14",
     "vite-plugin-static-copy": "^2.3.2"
   }
