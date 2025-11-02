@@ -1,6 +1,4 @@
-// Import Cesium configuration first
-import './cesiumConfig'
-import { JSX, useEffect, useRef, useState } from 'react'
+import { JSX, RefObject, SetStateAction, useEffect, useRef, useState } from 'react'
 import {
   Color,
   GpxDataSource,
@@ -30,17 +28,9 @@ const hexToRgb = (hex: string): Color => {
 
 const initializeViewer = async (
   apiKey: string,
-<<<<<<< HEAD
-  GPXFiles: { file: File; color: string }[],
-<<<<<<< HEAD
-  viewerRef: RefObject<Viewer | null>
-=======
-=======
   GPXFiles: GPXFileData[],
->>>>>>> 4bea2bb (Complete GPX track click functionality with comprehensive track information display)
-  viewerRef,
+  viewerRef: RefObject<Viewer | null>,
   onTrackClick: (trackInfo: TrackInfo) => void
->>>>>>> 8bf57a9 (Implement basic GPX track click detection with track info panel)
 ): Promise<void> => {
   Ion.defaultAccessToken = apiKey
 
@@ -55,7 +45,7 @@ const initializeViewer = async (
   // Add click handler for track selection
   const handler = new ScreenSpaceEventHandler(viewerRef.current.scene.canvas)
   // Store mapping between data sources and track info
-  const dataSourceToTrackInfo = new Map()
+  const dataSourceToTrackInfo = new Map<GpxDataSource, TrackInfo>()
 
   handler.setInputAction((click) => {
     const pickedObject = viewerRef.current?.scene.pick(click.position)
@@ -71,7 +61,7 @@ const initializeViewer = async (
           for (let i = 0; i < dataSources.length; i++) {
             const dataSource = dataSources.get(i)
             if (dataSource.entities.contains(entity)) {
-              const trackInfo = dataSourceToTrackInfo.get(dataSource)
+              const trackInfo = dataSourceToTrackInfo.get(dataSource as GpxDataSource)
               if (trackInfo) {
                 onTrackClick(trackInfo)
                 return
@@ -112,7 +102,7 @@ const initializeViewer = async (
 
 function App(): JSX.Element {
   const [apiKey, setApiKey] = useState<string>('')
-  const [GPXFiles, setGPXFiles] = useState<GPXFileData[]>([]) // Store multiple GPX files
+  const [GPXFiles, setGPXFiles] = useState<GPXFileData[]>([])
   const [weatherFormVisible, setWeatherFormVisible] = useState<boolean>(false)
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null)
   const [currentClock, setCurrentClock] = useState<GregorianDate | null>(null)
