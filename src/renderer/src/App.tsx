@@ -1,3 +1,5 @@
+// Import Cesium configuration first
+import './cesiumConfig'
 import { JSX, useEffect, useRef, useState } from 'react'
 import {
   Color,
@@ -43,9 +45,9 @@ const initializeViewer = async (
   Ion.defaultAccessToken = apiKey
 
   viewerRef.current = new Viewer('cesiumContainer', {
-    terrain: Terrain.fromWorldTerrain({
-      requestVertexNormals: false
-    })
+    terrain: Terrain.fromWorldTerrain({ requestVertexNormals: false }),
+    infoBox: false, // Disable InfoBox to avoid CSS loading issues
+    selectionIndicator: false
   })
 
   viewerRef.current.scene.globe.enableLighting = true
