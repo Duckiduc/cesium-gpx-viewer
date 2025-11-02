@@ -46,7 +46,7 @@ export function GpxForm({
 
         const gpxFileData: GPXFileData = {
           file,
-          color: Color.YELLOW.toCssColorString(),
+          color: Color.YELLOW.toCssHexString(),
           trackInfo: trackInfo || undefined
         }
 
@@ -55,10 +55,7 @@ export function GpxForm({
         console.error('Error processing GPX file:', file.name, error)
 
         // Add file without track info if parsing fails
-        const gpxFileData: GPXFileData = {
-          file,
-          color: Color.YELLOW.toCssColorString()
-        }
+        const gpxFileData: GPXFileData = { file, color: Color.YELLOW.toCssHexString() }
 
         newTracks.push(gpxFileData)
       }
