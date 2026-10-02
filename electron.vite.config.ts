@@ -1,17 +1,14 @@
 import { resolve } from 'path'
-import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
+import { defineConfig } from 'electron-vite'
 import react from '@vitejs/plugin-react'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 
+const cesiumBuild = '../../node_modules/cesium/Build/Cesium'
+
 export default defineConfig({
-  main: {
-    plugins: [externalizeDepsPlugin()]
-  },
-  preload: {
-    plugins: [externalizeDepsPlugin()]
-  },
+  main: {},
+  preload: {},
   renderer: {
-    assetsInclude: ['**/*.gpx'],
     resolve: {
       alias: {
         '@renderer': resolve('src/renderer/src')
@@ -20,24 +17,12 @@ export default defineConfig({
     plugins: [
       react(),
       viteStaticCopy({
-        targets: [
-          {
-            src: '../../node_modules/cesium/Build/Cesium/Workers',
-            dest: 'assets/cesium'
-          },
-          {
-            src: '../../node_modules/cesium/Build/Cesium/ThirdParty',
-            dest: 'assets/cesium'
-          },
-          {
-            src: '../../node_modules/cesium/Build/Cesium/Assets',
-            dest: 'assets/cesium'
-          },
-          {
-            src: '../../node_modules/cesium/Build/Cesium/Widgets',
-            dest: 'assets/cesium'
-          }
-        ]
+        targets: ['Workers', 'ThirdParty', 'Assets', 'Widgets'].map((directory) => ({
+          src: `${cesiumBuild}/${directory}`,
+          dest: 'assets/cesium',
+          // Drop `node_modules/cesium/Build/Cesium` from the copied paths
+          rename: { stripBase: 4 }
+        }))
       })
     ]
   }

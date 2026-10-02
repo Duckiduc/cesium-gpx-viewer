@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run typecheck:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run format)",
+      "Bash(npm run build)",
+      "Bash(npm test:*)",
+      "Bash(npx prettier:*)",
+      "Bash(npx eslint:*)",
+      "Bash(npx vitest:*)",
+      "Bash(npm outdated)",
+      "Bash(npm audit)"
+    ],
+    "deny": ["Read(./.env)", "Read(./.env.*)"]
+  }
+}

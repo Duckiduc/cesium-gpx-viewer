@@ -1,20 +1,27 @@
 # GPX Viewer with Cesium
 
-A GPX viewer built with React.js, Vite, and Cesium. This project allows you to visualize GPX (GPS Exchange Format) files on an interactive map using the Cesium library.
+A desktop GPX viewer built with Electron, React, Vite, and Cesium. This project allows you to visualize GPX (GPS Exchange Format) files on an interactive map using the Cesium library.
 
 ## Features
 
-- Upload and display GPX files on a 3D map.
-- Interactive visualization with zoom, pan, and rotation controls.
-- Display of track lines, waypoints, and markers from GPX files.
-- Customizable map styles and visualization options.
+- Display one or more GPX files on a 3D globe with terrain.
+- Manage tracks from the sidebar: pick a color, hide or show, remove, and reorder by dragging (the first track is drawn on top).
+- Track statistics: distance, duration, average speed and elevation.
+- Weather along a track for the date on the timeline, using [Visual Crossing](https://www.visualcrossing.com/).
+- Preferences for API keys, metric or imperial units, temperature unit and globe lighting.
+
+## Requirements
+
+- Node.js 22.12 or newer
+- A [Cesium ion access token](https://ion.cesium.com/tokens) (free)
+- Optional: a Visual Crossing API key for the weather panel
 
 ## Installation
 
 1.  Clone the repository:
 
     ```bash
-    git@github.com:Duckiduc/cesium-gpx-viewer.git
+    git clone git@github.com:Duckiduc/cesium-gpx-viewer.git
     ```
 
 2.  Navigate to the project directory:
@@ -29,13 +36,30 @@ A GPX viewer built with React.js, Vite, and Cesium. This project allows you to v
     npm install
     ```
 
-4.  Start the development server:
+4.  Start the app in development mode:
 
-        ```bash
-        npm run dev
-        ```
+    ```bash
+    npm run dev
+    ```
 
-    This will launch the GPX Viewer in your browser at `http://localhost:5173`.
+## Usage
+
+1. On first launch, enter your Cesium ion access token.
+2. Click **Add GPX** or drop `.gpx` files on the window.
+3. Click a track in the list or on the globe to see its statistics.
+4. Open **Preferences** (top of the sidebar) to add a weather API key or change units.
+
+Preferences, including the API keys, are stored unencrypted in the app's local storage on your computer.
+To skip the token prompt during development, set `RENDERER_VITE_CESIUM_ACCESS_TOKEN` in a `.env` file.
+
+## Development
+
+```bash
+npm run typecheck   # TypeScript
+npm run lint        # ESLint
+npm test            # unit tests (Vitest)
+npm run format      # Prettier
+```
 
 ## Build
 
@@ -49,10 +73,6 @@ $ npm run build:mac
 # For Linux
 $ npm run build:linux
 ```
-
-## Usage
-
-## Configuration
 
 ## Contributors
 

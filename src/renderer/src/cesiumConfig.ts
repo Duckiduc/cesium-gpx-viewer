@@ -13,6 +13,4 @@ const cesiumBaseUrl =
 
 window.CESIUM_BASE_URL = cesiumBaseUrl
 
-console.log('Cesium Base URL configured as:', window.CESIUM_BASE_URL)
-
 export {}

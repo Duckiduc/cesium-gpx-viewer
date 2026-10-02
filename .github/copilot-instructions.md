@@ -107,8 +107,10 @@ npm run build:mac
 │   └── renderer/       # React application (UI)
 │       ├── src/
 │       │   ├── components/  # React components
+│       │   ├── hooks/       # Viewer, track and preferences hooks
+│       │   ├── styles/      # Design tokens and shared styles
 │       │   ├── types/       # TypeScript type definitions
-│       │   └── utils/       # Utility functions
+│       │   └── utils/       # Utility functions and unit tests
 ├── out/                # Build output (after npm run build)
 ├── dist/               # Distribution packages (after platform builds)
 ├── build/              # Build assets (icons, entitlements)
@@ -118,22 +120,25 @@ npm run build:mac
 
 ### Core Components
 
-- **App.tsx**: Main React application with Cesium viewer integration
-- **GpxForm.tsx**: GPX file upload and management component
-- **WeatherForm.tsx**: Weather data integration component
-- **ApiForm.tsx**: Cesium Ion API key configuration
-- **cesiumUtils.ts**: Cesium.js utility functions
+- **App.tsx**: Application shell (sidebar, file import, weather requests)
+- **hooks/useCesiumViewer.ts**: Creates the Cesium viewer once per ion token
+- **hooks/useTrackLayers.ts**: Syncs the track list with Cesium data sources (color, visibility, order)
+- **hooks/useTracks.ts**: Track list state (add, remove, update, move)
+- **hooks/PreferencesProvider.tsx**: Preferences persisted in localStorage
+- **components/TrackList.tsx**: Track rows with reorder, color, hide and remove
+- **components/WeatherPanel.tsx**, **TrackDetails.tsx**, **PreferencesDialog.tsx**, **Welcome.tsx**
+- **utils/gpx.ts**: GPX parsing and track statistics
 
 ## Validation and Testing
 
 ### ALWAYS Validate Changes
 
-Since there are no automated unit tests, ALWAYS validate changes manually:
+Unit tests only cover the utilities (`npm test`), so ALWAYS validate changes manually as well:
 
 1. **Build Validation**:
 
    ```bash
-   npm run typecheck && npm run lint && npm run format && npm run build
+   npm run typecheck && npm run lint && npm run format && npm test && npm run build
    ```
 
    - Must complete successfully without errors.
@@ -163,20 +168,20 @@ Since there are no automated unit tests, ALWAYS validate changes manually:
 
 1. **API Key Setup**:
 
-   - Application should show API key form on first launch
+   - Application should show the token form on first launch (the token is then remembered)
    - Enter a valid Cesium Ion API key
    - Verify 3D globe loads correctly
 
 2. **GPX File Loading**:
 
-   - Upload one or more GPX files using the file input
-   - Assign different colors to multiple files
+   - Add one or more GPX files with the Add GPX button or by dropping them on the window
+   - Change colors, hide, remove and reorder tracks from the list
    - Verify tracks appear on the 3D map
    - Test zoom and navigation controls
 
 3. **Weather Integration**:
-   - Enable weather form toggle
-   - Enter weather API credentials
+   - Enter a Visual Crossing API key in Preferences
+   - Click Get weather with a track loaded
    - Verify weather data displays correctly
 
 ### CI Requirements
@@ -184,6 +189,7 @@ Since there are no automated unit tests, ALWAYS validate changes manually:
 The GitHub Actions CI requires:
 
 - `npm run typecheck` passes
+- `npm test` passes
 - `npm run lint` passes
 - `npm run format` produces no changes
 - `npm run build` completes successfully
@@ -223,7 +229,7 @@ The GitHub Actions CI requires:
 
 ### Required Tools
 
-- Node.js 18.x or 20.x (CI uses 18.x)
+- Node.js 22.12 or newer (CI uses 24.x)
 - npm (included with Node.js)
 - Git for version control
 

@@ -7,7 +7,8 @@
   "homepage": "",
   "scripts": {
     "format": "prettier --write .",
-    "lint": "eslint src --fix",
+    "lint": "eslint . --fix",
+    "test": "vitest run",
     "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
     "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
@@ -16,36 +17,41 @@
     "build": "npm run typecheck && electron-vite build",
     "postinstall": "electron-builder install-app-deps",
     "build:win": "npm run build && electron-builder --win --config",
-    "build:mac": "electron-vite build && electron-builder --mac --config",
-    "build:linux": "electron-vite build && electron-builder --linux --config"
+    "build:mac": "npm run build && electron-builder --mac --config",
+    "build:linux": "npm run build && electron-builder --linux --config"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",
-    "@electron-toolkit/utils": "^3.0.0",
-    "cesium": "^1.126.0",
-    "electron-updater": "^6.3.9"
+    "@electron-toolkit/utils": "^4.0.0",
+    "cesium": "^1.146.0",
+    "electron-updater": "^6.8.9"
   },
   "devDependencies": {
-    "@electron-toolkit/tsconfig": "^1.0.1",
-    "@electron/notarize": "^2.5.0",
-    "@types/node": "^22.15.0",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
-    "@typescript-eslint/eslint-plugin": "^8.46.2",
-    "@typescript-eslint/parser": "^8.46.2",
-    "@vitejs/plugin-react": "^4.3.4",
-    "electron": "^41.3.0",
-    "electron-builder": "^26.6.0",
-    "electron-vite": "^2.3.0",
-    "eslint": "^9.32.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.6",
-    "eslint-plugin-react": "^7.37.5",
-    "prettier": "^3.5.3",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "typescript": "^5.9.3",
-    "vite": "^5.4.21",
-    "vite-plugin-static-copy": "^3.1.4"
+    "@electron-toolkit/tsconfig": "^2.0.0",
+    "@electron/notarize": "^3.1.1",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "electron": "^44.5.1",
+    "electron-builder": "^26.15.3",
+    "electron-vite": "^6.0.0-beta.5",
+    "eslint": "^10.11.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.6",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.9",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.71.0",
+    "vite": "^8.3.2",
+    "vite-plugin-static-copy": "^4.1.1",
+    "vitest": "^5.0.3"
   }
 }
