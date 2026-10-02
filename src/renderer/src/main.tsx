@@ -2,11 +2,14 @@
 import './cesiumConfig'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './assets/index.css'
+import './styles/base.css'
 import App from './App'
+import { PreferencesProvider } from './hooks/PreferencesProvider'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <PreferencesProvider>
+      <App />
+    </PreferencesProvider>
   </React.StrictMode>
 )

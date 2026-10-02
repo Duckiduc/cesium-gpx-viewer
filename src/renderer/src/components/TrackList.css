@@ -1,0 +1,115 @@
+.track-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  list-style: none;
+}
+
+.track-list__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 4px 4px 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-medium);
+  background: var(--color-surface-raised);
+}
+
+.track-list__item--selected {
+  border-color: var(--color-accent);
+}
+
+.track-list__item--hidden .track-list__main,
+.track-list__item--hidden .track-list__color {
+  opacity: 0.45;
+}
+
+.track-list__item--dragging {
+  opacity: 0.4;
+}
+
+/* Insertion marker shown while dragging another track over this one */
+.track-list__item--drop-before::before,
+.track-list__item--drop-after::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--color-accent);
+}
+
+.track-list__item--drop-before::before {
+  top: -4px;
+}
+
+.track-list__item--drop-after::after {
+  bottom: -4px;
+}
+
+.track-list__grip {
+  display: flex;
+  flex: none;
+  align-items: center;
+  width: 22px;
+  height: 28px;
+  justify-content: center;
+  border-radius: var(--radius-small);
+  color: var(--color-text-muted);
+  cursor: grab;
+}
+
+.track-list__grip:active {
+  cursor: grabbing;
+}
+
+.track-list__color {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.track-list__color:focus-within {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.track-list__color input {
+  width: 40px;
+  height: 40px;
+  margin: -12px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  appearance: none;
+}
+
+.track-list__main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  padding: 2px 6px;
+  border-radius: var(--radius-small);
+  text-align: left;
+}
+
+.track-list__name {
+  overflow: hidden;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.track-list__meta {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}

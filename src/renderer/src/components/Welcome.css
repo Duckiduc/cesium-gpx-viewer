@@ -1,0 +1,33 @@
+.welcome {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(circle at 50% 35%, #1b2a3d 0%, #0b0e13 70%);
+}
+
+.welcome__card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 420px;
+  padding: 28px;
+}
+
+.welcome__title {
+  font-size: 22px;
+  font-weight: 650;
+}
+
+.welcome__text {
+  color: var(--color-text-muted);
+}
+
+.welcome__hint {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}

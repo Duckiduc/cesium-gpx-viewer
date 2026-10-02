@@ -1,65 +1,39 @@
-const tsParser = require('@typescript-eslint/parser')
-const tsPlugin = require('@typescript-eslint/eslint-plugin')
-const reactPlugin = require('eslint-plugin-react')
-const prettierPlugin = require('eslint-plugin-prettier')
+const js = require('@eslint/js')
+const globals = require('globals')
+const tseslint = require('typescript-eslint')
+const reactHooks = require('eslint-plugin-react-hooks')
+const prettierRecommended = require('eslint-plugin-prettier/recommended')
 
-module.exports = [
+module.exports = tseslint.config(
+  { ignores: ['node_modules/**', 'dist/**', 'out/**'] },
+  js.configs.recommended,
+  tseslint.configs.recommended,
   {
-    files: ['src/**/*.{js,ts,jsx,tsx}'],
-    ignores: ['node_modules/**', 'dist/**', 'out/**', 'build/**'],
+    files: ['src/**/*.{ts,tsx}'],
     languageOptions: {
-      sourceType: 'module', // `ecmaVersion` is no longer necessary
-      globals: {
-        window: 'readonly',
-        document: 'readonly',
-        navigator: 'readonly',
-        console: 'readonly',
-        module: 'readonly',
-        require: 'readonly',
-        process: 'readonly',
-        __dirname: 'readonly',
-        Buffer: 'readonly',
-        setImmediate: 'readonly',
-        clearImmediate: 'readonly',
-        setTimeout: 'readonly',
-        clearTimeout: 'readonly',
-        setInterval: 'readonly',
-        clearInterval: 'readonly'
-      },
-      parser: tsParser
-    },
-    plugins: {
-      '@typescript-eslint': tsPlugin,
-      react: reactPlugin,
-      prettier: prettierPlugin
+      globals: { ...globals.browser, ...globals.node }
     },
     rules: {
       '@typescript-eslint/ban-ts-comment': ['error', { 'ts-ignore': 'allow-with-description' }],
       '@typescript-eslint/explicit-function-return-type': 'error',
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-empty-function': ['error', { allow: ['arrowFunctions'] }],
       '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/no-non-null-assertion': 'off',
-      '@typescript-eslint/no-var-requires': 'off',
-      'prettier/prettier': 'error' // Prettier formatting rule
-    },
-    linterOptions: {
-      reportUnusedDisableDirectives: true
+      '@typescript-eslint/no-non-null-assertion': 'off'
     }
   },
   {
-    files: ['*.js'],
-    rules: {
-      '@typescript-eslint/explicit-function-return-type': 'off'
-    }
+    files: ['src/renderer/**/*.{ts,tsx}'],
+    extends: [reactHooks.configs.flat.recommended]
   },
   {
-    files: ['**/*.ts', '**/*.tsx'],
+    files: ['**/*.js'],
     languageOptions: {
-      parser: tsParser
+      sourceType: 'commonjs',
+      globals: globals.node
     },
     rules: {
-      // TypeScript-specific rules can be added here if needed
+      '@typescript-eslint/no-require-imports': 'off'
     }
-  }
-]
+  },
+  prettierRecommended
+)

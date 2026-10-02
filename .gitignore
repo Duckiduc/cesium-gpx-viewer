@@ -1,6 +1,18 @@
 node_modules
 dist
 out
+coverage
 *.log*
+*.tsbuildinfo
+.eslintcache
+.DS_Store
+
+# Local environment files can hold API tokens
 .env
+.env.*
+!.env.example
+
+# Personal GPX tracks
 *.gpx
+
+.claude/settings.local.json
